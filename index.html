@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Laboratorio: los campos de notas</title>
+<style>
+  :root{
+    --bg:#f4f5f7; --card:#ffffff; --ink:#1b1d21; --muted:#5b6066;
+    --accent:#0b4a8f; --accent-soft:#e7eff8; --border:#d8dce2; --good:#1f7a4d;
+    --field:#fbfcfd;
+  }
+  :root:not([data-theme="light"]){}
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#121417; --card:#1b1e23; --ink:#e9ebee; --muted:#a3a9b2;
+      --accent:#5aa0ea; --accent-soft:#1d2a3a; --border:#333841; --good:#5bd39a;
+      --field:#23272e;
+    }
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    padding:0 16px;
+  }
+  .wrap{max-width:860px; margin:0 auto; padding:32px 0 80px}
+  header.top{border-bottom:3px solid var(--accent); padding-bottom:16px; margin-bottom:8px}
+  header.top .kicker{font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+  h1{font-size:30px; margin:6px 0 4px; letter-spacing:-.01em}
+  h2{font-size:21px; margin:34px 0 10px; color:var(--accent)}
+  h3{font-size:16px; margin:18px 0 6px}
+  p{margin:8px 0}
+  .muted{color:var(--muted)}
+  .card{background:var(--card); border:1px solid var(--border); border-radius:12px; padding:18px 20px; margin:14px 0}
+  .id-row{display:flex; gap:16px; flex-wrap:wrap; margin-top:14px}
+  .id-row label{flex:1; min-width:200px; font-size:14px; color:var(--muted)}
+  input[type=text], textarea, select{
+    width:100%; margin-top:4px; background:var(--field); color:var(--ink);
+    border:1px solid var(--border); border-radius:8px; padding:9px 11px; font:inherit;
+  }
+  textarea{min-height:64px; resize:vertical}
+  select{appearance:none}
+  table{width:100%; border-collapse:collapse; margin:10px 0; font-size:14.5px}
+  th,td{text-align:left; padding:8px 10px; border-bottom:1px solid var(--border); vertical-align:top}
+  th{color:var(--muted); font-weight:600}
+  .item{margin:16px 0}
+  .q{font-weight:600}
+  .quote{background:var(--accent-soft); border-radius:8px; padding:8px 12px; margin:6px 0; font-style:italic}
+  .fields{display:grid; grid-template-columns:1fr 240px; gap:12px; margin-top:8px}
+  @media (max-width:560px){ .fields{grid-template-columns:1fr} }
+  .lbl{font-size:13px; color:var(--muted); display:block; margin-bottom:2px}
+  .toolbar{position:sticky; bottom:0; background:var(--bg); padding:14px 0; margin-top:28px;
+    border-top:1px solid var(--border); display:flex; gap:12px; flex-wrap:wrap}
+  button{
+    font:inherit; font-weight:600; border:0; border-radius:9px; padding:11px 18px; cursor:pointer;
+  }
+  .btn-primary{background:var(--accent); color:#fff}
+  .btn-ghost{background:transparent; color:var(--accent); border:1px solid var(--accent)}
+  .saved{font-size:13px; color:var(--good); align-self:center}
+  .note-box{font-size:13.5px; color:var(--muted); border-left:3px solid var(--accent); padding:4px 0 4px 12px; margin:10px 0}
+  footer{margin-top:40px; font-size:13px; color:var(--muted); text-align:center}
+  @media print{
+    .toolbar{display:none} body{background:#fff}
+    .card{break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="kicker">Descripción Documental II · Segundo semestre 2026 · UTEM</div>
+    <h1>Laboratorio: los campos de notas</h1>
+    <p class="muted">Completa la guía en esta página. Al terminar, usa <strong>Descargar mis respuestas</strong> o <strong>Imprimir / Guardar como PDF</strong> y sube ese archivo a Canvas.</p>
+    <div class="id-row">
+      <label>Estudiante<input type="text" id="nombre" placeholder="Nombre y apellido"></label>
+      <label>Fecha<input type="text" id="fecha" placeholder="dd/mm/aaaa"></label>
+    </div>
+  </header>
+
+  <h2>Antes de empezar</h2>
+  <div class="card">
+    <p>Una <strong>nota</strong> guarda información útil que no cabe en los otros campos del registro. Una buena nota es <strong>objetiva</strong>, <strong>breve</strong>, va en el <strong>campo correcto</strong> y <strong>agrega algo</strong> que no está en ningún otro campo.</p>
+    <table>
+      <tr><th>Nota</th><th>Campo</th><th>¿Para qué sirve?</th></tr>
+      <tr><td>General</td><td>500</td><td>Información útil que no tiene un campo propio.</td></tr>
+      <tr><td>De contenido</td><td>505</td><td>Lista las partes o piezas que contiene (cuentos, capítulos, pistas).</td></tr>
+      <tr><td>De bibliografía</td><td>504</td><td>Indica que incluye referencias y, si se puede, dónde.</td></tr>
+      <tr><td>De resumen</td><td>520</td><td>Describe brevemente de qué trata.</td></tr>
+      <tr><td>De idioma</td><td>546</td><td>Informa el o los idiomas del contenido.</td></tr>
+      <tr><td>De público</td><td>521</td><td>Indica a quién está dirigido.</td></tr>
+    </table>
+  </div>
+
+  <h2>Ejercicio 1 · ¿Qué tipo de nota es?</h2>
+  <p class="muted">Lee cada nota e indica a qué campo corresponde.</p>
+  <div class="card" id="ej1"></div>
+
+  <h2>Ejercicio 2 · Escribe la nota</h2>
+  <p class="muted">Para cada recurso, redacta la nota adecuada e indica en qué campo iría.</p>
+  <div class="card" id="ej2"></div>
+
+  <h2>Ejercicio 3 · Corrige la nota</h2>
+  <p class="muted">Reescribe cada nota para que sea objetiva, breve y no repita lo que ya está en otro campo. Si no corresponde ninguna nota, explícalo.</p>
+  <div class="card" id="ej3"></div>
+
+  <h2>Ejercicio 4 · Caso integrador</h2>
+  <div class="card">
+    <p class="q">Lee la descripción del recurso y escribe <strong>todas</strong> las notas que necesita, indicando el campo de cada una.</p>
+    <div class="quote">Recurso: una edición titulada <em>Cuentos completos</em>, de Horacio Quiroga. Reúne los relatos <em>A la deriva</em>, <em>El almohadón de plumas</em> y <em>La gallina degollada</em>. El texto va en español e inglés, en páginas enfrentadas. Incluye un estudio preliminar con una bibliografía de ocho páginas. En la contratapa indica que está pensada para estudiantes universitarios. El título se tomó de la cubierta, porque el libro no tiene portada.</div>
+    <div id="ej4"></div>
+  </div>
+
+  <h2>Para cerrar</h2>
+  <div class="note-box">Antes de dar una nota por lista, revísala: ¿es objetiva (no opina)? ¿es breve? ¿va en el campo correcto? ¿agrega algo que no está en ningún otro campo?</div>
+
+  <div class="toolbar">
+    <button class="btn-primary" onclick="descargar()">Descargar mis respuestas</button>
+    <button class="btn-ghost" onclick="window.print()">Imprimir / Guardar como PDF</button>
+    <span class="saved" id="savedMsg"></span>
+  </div>
+
+  <footer>Tus respuestas no se envían a ningún lado automáticamente: debes descargarlas o imprimirlas y subirlas a Canvas.</footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var FIELDS = ["","Nota general (500)","Nota de contenido (505)","Nota de bibliografía (504)",
+                "Nota de resumen (520)","Nota de idioma (546)","Nota de público (521)"];
+
+  function selectHTML(id){
+    var o = FIELDS.map(function(f){ return '<option value="'+f+'">'+(f||"Selecciona el campo…")+'</option>'; }).join("");
+    return '<select id="'+id+'" class="ans">'+o+'</select>';
+  }
+
+  // Ejercicio 1
+  var e1 = [
+    "Texto en español e inglés en páginas enfrentadas.",
+    "Contiene: El Aleph — El inmortal — La casa de Asterión.",
+    "Novela sobre un régimen que vigila a sus ciudadanos.",
+    "Incluye índice bibliográfico.",
+    "Dirigido a estudiantes de enseñanza media."
+  ];
+  var letters = ["a","b","c","d","e"];
+  document.getElementById("ej1").innerHTML = e1.map(function(t,i){
+    var id = "e1_"+letters[i];
+    return '<div class="item"><div class="q">'+letters[i]+')</div>'+
+           '<div class="quote">'+t+'</div>'+
+           '<span class="lbl" data-for="'+id+'">Tu respuesta</span>'+selectHTML(id)+'</div>';
+  }).join("");
+
+  // Ejercicio 2
+  var e2 = [
+    "Una antología que reúne tres cuentos: El Sur, El Aleph y Emma Zunz.",
+    "Una edición bilingüe español-inglés.",
+    "Un libro que trae veinte páginas de referencias al final.",
+    "Un libro infantil ilustrado para primeros lectores."
+  ];
+  document.getElementById("ej2").innerHTML = e2.map(function(t,i){
+    var id = "e2_"+letters[i];
+    return '<div class="item"><div class="q">'+letters[i]+')</div>'+
+           '<div class="quote">'+t+'</div>'+
+           '<div class="fields"><div><span class="lbl" data-for="'+id+'_nota">Nota</span>'+
+           '<textarea id="'+id+'_nota" class="ans"></textarea></div>'+
+           '<div><span class="lbl" data-for="'+id+'_campo">Campo</span>'+selectHTML(id+"_campo")+'</div></div></div>';
+  }).join("");
+
+  // Ejercicio 3
+  var e3 = [
+    "\"Este libro es muy interesante y tiene muchas cosas.\"",
+    "Una nota que repite el nombre del autor, que ya aparece en el campo de autor.",
+    "Un resumen que ocupa media página."
+  ];
+  document.getElementById("ej3").innerHTML = e3.map(function(t,i){
+    var id = "e3_"+letters[i];
+    return '<div class="item"><div class="q">'+letters[i]+')</div>'+
+           '<div class="quote">'+t+'</div>'+
+           '<span class="lbl" data-for="'+id+'">Tu corrección</span>'+
+           '<textarea id="'+id+'" class="ans"></textarea></div>';
+  }).join("");
+
+  // Ejercicio 4
+  var rows = "";
+  for(var i=1;i<=5;i++){
+    var id = "e4_n"+i;
+    rows += '<div class="item"><div class="fields"><div><span class="lbl" data-for="'+id+'_nota">Nota '+i+'</span>'+
+            '<textarea id="'+id+'_nota" class="ans"></textarea></div>'+
+            '<div><span class="lbl" data-for="'+id+'_campo">Campo</span>'+selectHTML(id+"_campo")+'</div></div></div>';
+  }
+  document.getElementById("ej4").innerHTML = rows;
+
+  // ---- Autosave (localStorage, con respaldo seguro) ----
+  var KEY = "lab_notas_ddii";
+  var saveMsg = document.getElementById("savedMsg");
+  function allFields(){
+    return Array.prototype.slice.call(document.querySelectorAll(".ans, #nombre, #fecha"));
+  }
+  function save(){
+    try{
+      var data = {};
+      allFields().forEach(function(el){ data[el.id] = el.value; });
+      localStorage.setItem(KEY, JSON.stringify(data));
+      saveMsg.textContent = "Guardado en este navegador ✓";
+      clearTimeout(save._t); save._t = setTimeout(function(){ saveMsg.textContent=""; }, 1800);
+    }catch(e){ /* almacenamiento no disponible: se ignora */ }
+  }
+  function restore(){
+    try{
+      var raw = localStorage.getItem(KEY); if(!raw) return;
+      var data = JSON.parse(raw);
+      allFields().forEach(function(el){ if(data[el.id]!=null) el.value = data[el.id]; });
+    }catch(e){}
+  }
+  restore();
+  document.addEventListener("input", save);
+
+  // ---- Descargar respuestas ----
+  function val(id){ var el=document.getElementById(id); return el ? el.value.trim() : ""; }
+  window.descargar = function(){
+    var L=[];
+    L.push("LABORATORIO: LOS CAMPOS DE NOTAS — Descripción Documental II");
+    L.push("Estudiante: "+(val("nombre")||"(sin nombre)")+"   Fecha: "+(val("fecha")||""));
+    L.push("");
+    L.push("EJERCICIO 1 · ¿Qué tipo de nota es?");
+    e1.forEach(function(t,i){ L.push("  "+letters[i]+") "+t); L.push("     → "+(val("e1_"+letters[i])||"(sin responder)")); });
+    L.push("");
+    L.push("EJERCICIO 2 · Escribe la nota");
+    e2.forEach(function(t,i){ var id="e2_"+letters[i];
+      L.push("  "+letters[i]+") "+t);
+      L.push("     Nota:  "+(val(id+"_nota")||"(sin responder)"));
+      L.push("     Campo: "+(val(id+"_campo")||"(sin responder)")); });
+    L.push("");
+    L.push("EJERCICIO 3 · Corrige la nota");
+    e3.forEach(function(t,i){ L.push("  "+letters[i]+") "+t); L.push("     Corrección: "+(val("e3_"+letters[i])||"(sin responder)")); });
+    L.push("");
+    L.push("EJERCICIO 4 · Caso integrador (Cuentos completos, de Horacio Quiroga)");
+    for(var i=1;i<=5;i++){ var id="e4_n"+i;
+      L.push("  Nota "+i+": "+(val(id+"_nota")||"(sin responder)"));
+      L.push("     Campo: "+(val(id+"_campo")||"(sin responder)")); }
+    L.push("");
+    var blob = new Blob([L.join("\n")], {type:"text/plain;charset=utf-8"});
+    var a = document.createElement("a");
+    var nm = (val("nombre")||"respuestas").replace(/[^\w\s-]/g,"").trim().replace(/\s+/g,"_");
+    a.href = URL.createObjectURL(blob);
+    a.download = "Lab_notas_"+nm+".txt";
+    document.body.appendChild(a); a.click();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+  };
+})();
+</script>
+</body>
+</html>
